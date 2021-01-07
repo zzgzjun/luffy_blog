@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>用户登录</title>
     <link rel="stylesheet" href="/static/blog/bs/css/bootstrap.css">
 </head>
 <body>
@@ -10,7 +10,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-md-offset-3 col-sm-12">
-                <h3 class="text-center">登录页面</h3>
+                <h3 class="text-center">用户登录</h3>
                 <form >
                     {% csrf_token %}
                     <div class="form-group">
@@ -26,17 +26,27 @@
                     <div class="form-group">
                         <label for="valid_code">验证码</label>
                         <div class="row">
-                            <div class="col-md-6 col-sm-12">
+                            <div class="col-xs-6 ">
                                 <input type="text" id="valid_code" class="form-control">
                             </div>
-                            <div class="col-md-6 col-sm-12">
+                            <div class="col-xs-6 ">
                                 <img width="100%" height="34" id="valid_code_img" src="/get_validCode_img/" alt="">
                             </div>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <input type="button" id="login_btn" class="btn btn-default  pull-right form-control" value="提交" >
+                        <div class="row">
+                            <div class="col-xs-8 ">
+                                <input type="button" id="login_btn" class="btn btn-default  " value="提交" >
+                                <span class="error"></span>
+                            </div>
+
+                            <div class="col-xs-4 pull-right">
+                                <a href="/register/" type="button" class="btn btn-success  pull-right">注册</a>
+                            </div>
+                        </div>
+
                     </div>
 
 
@@ -50,6 +60,9 @@
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
         // 刷新验证码
+        //$("#valid_code_img").click(function () {
+         //   $(this)[0].src+="?";
+      //  });
         $("#valid_code_img").click(function () {
             $(this)[0].src+="?";
         });
@@ -66,6 +79,15 @@
                 },
                 success:function (data) {
                     console.log(data);
+                    if(data.user){
+                        location.href="/index";
+                    }
+                    else {
+                        $(".error").text(data.msg).css({"color":"red","margin-left":"5px"});
+                        setTimeout(function () {
+                            $(".error").text("");
+                        },1000)
+                    }
                 }
 
             })

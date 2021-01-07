@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户注册</title>
+    <link rel="stylesheet" href="/static/blog/bs/css/bootstrap.css">
+    <style>
+        #avatar_img{
+            margin-left: 15px;
+            border-radius: 20%;
+        }
+        #avatar{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3 col-sm-12">
+                <h3 class="text-center">注册页面</h3>
+
+                <form >
+                    {% csrf_token %}
+
+                    {% for field in form %}
+                        <div class="form-group">
+                            <label for="{{ field.auto_id }}">{{ field.label }}</label>
+                            {{ field }}
+                        </div>
+                    {% endfor %}
+
+                    {#头像,不校验#}
+                    <div class="form-group">
+                        <label for="avatar">头像
+                            <img id="avatar_img" width="50" height="50" src="/static/blog/images/default.png" alt="">
+                        </label>
+{#                        <input type="file" id="avatar" style="display: none">#}
+                        <input type="file" id="avatar">
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-xs-8 ">
+                                <input type="button" id="login_btn" class="btn btn-default  " value="提交" >
+                                <span class="error"></span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+{#    <script src="/static/blog/js/jquery-3.2.1.min.js"></script>#}
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        $("#avatar").change(function () {
+            {#1.获取文件对象#}
+            var file_obj=$(this)[0].files[0];
+            {#2.获取文件对象路径#}
+            var reader=new FileReader();
+            reader.readAsDataURL(file_obj);
+
+            {#3.设置图像路径,修改src属性#}
+            reader.onload=function () {
+            {#$("#avatar_img").attr("src",reader.result);#}
+            $("#avatar_img")[0].src=reader.result;
+            };
+        })
+    </script>
+</body>
+</html>

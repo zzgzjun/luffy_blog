@@ -1,7 +1,13 @@
 from django.shortcuts import render,HttpResponse
 from django.http import JsonResponse
+from django.contrib import auth
 import random
+from . import forms
 # Create your views here.
+
+
+def index(request):
+    return render(request,"index.html")
 
 
 def login(request):
@@ -10,19 +16,25 @@ def login(request):
         pwd=request.POST.get("pwd")
         valid_code=request.POST.get("valid_code")
 
-        print(user)
-        print(pwd)
-        print(valid_code)
-
         resp={"user":None,"msg":None}
 
         valid_code_str=request.session.get("valid_code_str")
         if valid_code.upper()==valid_code_str.upper():
-            pass
+            user=auth.authenticate(username=user,password=pwd)
+            if user:
+                auth.login(request,user)
+                resp["user"]=user.username
+            else:
+                resp["msg"]="用户名或密码错误！"
         else:
-            resp["msg"]="valid code error!"
+            resp["msg"]="验证码错误!"
         return JsonResponse(resp)
     return render(request,"login.html")
+
+
+def register(request):
+    form=forms.UserForm()
+    return render(request,"register.html",{"form":form})
 
 
 def get_validCode_img(request):
@@ -71,14 +83,14 @@ def get_validCode_img(request):
     width=270
     height=40
     # for i in range(12):
-    for i in range(1):
+    for i in range(5):
         x1=random.randint(0,width)
         y1 = random.randint(0, height)
         x2=random.randint(0,width)
         y2=random.randint(0,height)
         draw.line((x1,y1,x2,y2),fill=get_random_color())
 
-    for i in range(80):
+    for i in range(40):
         draw.point([random.randint(0,width),random.randint(0,height)],fill=get_random_color())
         x=random.randint(0,width)
         y=random.randint(0,height)
