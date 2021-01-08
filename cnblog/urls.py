@@ -17,6 +17,8 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from blog import views
+from django.views.static import serve
+from django.conf import settings
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -24,4 +26,7 @@ urlpatterns = [
     url(r'^register/', views.register),
     url(r'^index/', views.index),
     url(r'^get_validCode_img/', views.get_validCode_img),
+    # media配置
+    url(r'^media/(?P<path>.*)', serve, {"document_root": settings.MEDIA_ROOT}),
+
 ]
