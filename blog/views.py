@@ -33,6 +33,14 @@ def login(request):
 
 
 def register(request):
+    if request.is_ajax():
+        resp={"user":None,"msg":None}
+        form = forms.UserForm(request.POST)
+        if form.is_valid():
+            resp["user"]=form.cleaned_data.get("user")
+        else:
+            resp["msg"]=form.errors
+        return JsonResponse(resp)
     form=forms.UserForm()
     return render(request,"register.html",{"form":form})
 
