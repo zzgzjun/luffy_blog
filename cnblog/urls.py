@@ -25,7 +25,8 @@ urlpatterns = [
     url(r'^login/', views.login),
     url(r'^register/', views.register),
     url(r'^index/', views.index),
-    url(r'^get_validCode_img/', views.get_validCode_img),
+    url(r'^myforms/', views.myforms),
+    url(r'^get_valid_code/', views.get_valid_code),
     # media配置
     url(r'^media/(?P<path>.*)', serve, {"document_root": settings.MEDIA_ROOT}),
 

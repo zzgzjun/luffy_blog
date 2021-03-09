@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <title>table模块快速使用</title>
+  <link rel="stylesheet" href="/static/simple_layui/layui/css/layui.css?t=2" media="all">
+  <link rel="stylesheet" href="/static/simple_layui/css/common.css?t=2" media="all">
+  <link rel="stylesheet" href="/static/blog/css/cnblog.css">
+</head>
+<style type="text/css" id="LAY_layadmin_theme"></style>
+<body>
+<div id="LAY_WRAP">
+  <div id='LAY_app' class="layui-side layui-bg-black">
+      <div class="layui-side-scroll">
+          <div class="layui-logo" lay-href=""> <span>layuiAdmin Pro</span> </div>
+          <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+          <ul class="layui-nav layui-nav-left layui-nav-tree" lay-filter="layui-nav-left">
+              <li class="layui-nav-item"><a href="/index"><i class="layui-icon layui-icon-home"></i><cite >首页</cite></a></li>
+              <li class="layui-nav-item"><a href="/myforms"><i class="layui-icon layui-icon-app"></i><cite >表单</cite></a></li>
+              <li class="layui-nav-item"><a href=""><i class="layui-icon layui-icon-camera"></i><cite >表格</cite></a></li>
+              <li class="layui-nav-item">
+                  <a class="" href="javascript:;"><i class="layui-icon layui-icon-face-smile"></i> <cite >导航1</cite></a>
+                  <dl class="layui-nav-child">
+                      <dd>
+                        <a class="" href="javascript:;"> <cite >二级菜单</cite></a>
+                        <dl class="layui-nav-child layui-cite-2">
+                            <dd><a href="javascript:;"> <cite >三级菜单</cite></a></dd>
+                            <dd><a href="javascript:;"> <cite >三级菜单</cite></a></dd>
+                            <dd><a href="javascript:;"> <cite >三级菜单</cite></a></dd>
+                        </dl>
+
+                      </dd>
+                      <dd><a href="javascript:;"><i class="fa fa-clipboard fa-lg"></i> <cite >简单模拟</cite></a></dd>
+                      <dd><a href="javascript:;"><i class="fa fa-file-text fa-lg"></i> <cite >测试</cite></a></dd>
+                  </dl>
+              </li>
+              <li class="layui-nav-item">
+                  <a href="javascript:;"><i class="layui-icon layui-icon-face-smile"></i> <cite >导航2</cite></a>
+                  <dl class="layui-nav-child">
+                      <dd><a href="javascript:;"> <cite >测试</cite></a></dd>
+                      <dd><a href="javascript:;"> <cite >测试</cite></a></dd>
+                  </dl>
+              </li>
+          </ul>
+      </div>
+  </div>
+
+  <!--主体-->
+  <div class="layui-body" id="LAY_app_body" >
+    <div class="layui-header cnblog-fixbar-top">
+          <!-- 头部区域 -->
+        <ul class="layui-nav layui-layout-left" lay-filter="layadmin-layout-left">
+            <li class="layui-nav-item layadmin-flexible" lay-unselect="">
+              <a href="javascript:;" layadmin-event="flexible" title="侧边伸缩">
+                <i class="layui-icon layui-icon-shrink-right" id="LAY_app_flexible"></i>
+              </a>
+            </li>
+            <li class="layui-nav-item" lay-unselect="">
+              <a href="javascript:;" layadmin-event="refresh" title="刷新">
+                <i class="layui-icon layui-icon-refresh-3"></i>
+              </a>
+            </li>
+            <li class="layui-nav-item layui-hide-xs" lay-unselect="">
+              <input type="text" placeholder="搜索..." autocomplete="off" class="layui-input layui-input-search" layadmin-event="serach" lay-action="template/search/keywords=">
+            </li>
+        </ul>
+        <ul class="layui-nav layui-layout-right " lay-filter="layadmin-layout-right">
+            <li class="layui-nav-item abc" lay-unselect="">
+              <a href="javascript:;" > <span>{{ request.user.username }}</span> <span class="layui-nav-more"></span></a>
+              <dl class="layui-nav-child">
+                  <dd><a lay-href="set/user/info">基本资料</a></dd>
+                  <dd><a lay-href="set/user/password">修改密码</a></dd>
+                  <hr>
+                  <dd layadmin-event="logout" style="text-align: center;"><a>退出</a></dd>
+              </dl>
+            </li>
+        </ul>
+    </div>
+    <div style="margin-top:60px">
+      {% block content %}
+
+      {% endblock %}
+    </div>
+
+
+{#      <div class="layui-footer cnblog-fixbar-bottom">#}
+{#          <!-- 底部固定区域 -->#}
+{#          © layui.com - 底部固定区域#}
+{#      </div>#}
+  </div>
+  </div>
+
+</div>
+<!--用于选色效果-->
+
+
+<!--辅助作用一般用于手机遮罩层-->
+<div class="layui-layer-shade mobilenav" id="mobilenav" onClick="clearmobilenav()" style="z-index: 998; background-color: rgb(0, 0, 0); opacity: 0.3;display:none"></div>
+</body>
+
+<script type="text/javascript" src="/static/simple_layui/js/jquery.min.js"></script>
+<script type="text/javascript" src="/static/simple_layui/layui/layui.js?t=2"></script>
+<script type="text/javascript" src="/static/simple_layui/js/common.js?t=2"></script>
+
+{% block js %}
+{% endblock %}
+</html>

@@ -1,0 +1,9 @@
+        .cnblog-fixbar-top{
+            position: fixed;
+            top: 0;
+        }
+        @media (min-device-width: 768px){
+            .layui-layout-right .layui-nav-item {
+                margin-right: 230px;
+            }
+        }
